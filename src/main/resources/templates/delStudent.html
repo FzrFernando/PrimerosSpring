@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Del Student</title>
+</head>
+<body>
+	<form class="form-horizontal" action="#" th:action="@{/delStudent/submit}"
+	th:object="${estudiante}" method="POST">
+<fieldset>
+<!-- Form Name -->
+<legend>Del Student</legend>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="name">Name</label>  
+  <div class="col-md-4">
+  <input th:field="*{name}" th:value="${name}" id="name" name="name" type="text" placeholder="Name" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="surname">Surname</label>  
+  <div class="col-md-4">
+  <input th:field="*{surname}" th:value="${surname}" id="surname" name="surname" type="text" placeholder="Surname" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="age">Age</label>  
+  <div class="col-md-4">
+  <input th:field="*{age}" th:value="${age}" id="age" name="age" type="number" placeholder="Age" class="form-control input-md">
+    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="button"></label>
+  <div class="col-md-4">
+    <button id="button" name="button" class="btn btn-primary">Add</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+</body>
+</html>
