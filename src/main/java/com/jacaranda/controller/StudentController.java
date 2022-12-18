@@ -51,4 +51,18 @@ public class StudentController {
 		repositorio.removeStudent(s);
 		return "redirect:/listStudent";
 	}
+	
+	@GetMapping("updateStudent")
+	public String updateStudent(Model model,
+			@RequestParam(name="name")String name,
+			@RequestParam(name="apellido")String apellido) {
+			Student estudiante=repositorio.get(name, apellido);
+			model.addAttribute("estudiante", estudiante);	
+		return "updateStudent";
+	}
+	
+	@PostMapping("/updateStudent/submit")
+	public String updateStudentSubmit(Model model,Student s) {
+		repositorio.updateStudent(s);
+		return "redirect:/listStudent";
 }
