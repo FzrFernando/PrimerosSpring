@@ -3,6 +3,8 @@ package com.jacaranda.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +19,7 @@ public class StudentController {
 	@Autowired
 	StudentService repositorio;
 	
-	@GetMapping("listStudent")
+	@GetMapping({"listStudent","/"})
 	public String listStudent(Model model) {
 		model.addAttribute("lista", repositorio.getStudents());
 		return "listStudents";
@@ -31,10 +33,15 @@ public class StudentController {
 	}
 	
 	@PostMapping("/addStudent/submit")
-	public String studentSubmit(@ModelAttribute("estudiante") Student s) {
-		repositorio.addStudent(s);
-		
-		return "redirect:/listStudent";
+	public String studentSubmit(@Validated @ModelAttribute("estudiante") Student s,
+			BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "addStudent";
+		}
+		else {
+			repositorio.addStudent(s);
+			return "redirect:/listStudent";
+		}
 	}
 	
 	@GetMapping("/delStudent")
@@ -55,14 +62,20 @@ public class StudentController {
 	@GetMapping("updateStudent")
 	public String updateStudent(Model model,
 			@RequestParam(name="name")String name,
-			@RequestParam(name="apellido")String apellido) {
-			Student estudiante=repositorio.get(name, apellido);
+			@RequestParam(name="surname")String surname) {
+			Student estudiante=repositorio.getStudent(name, surname);
 			model.addAttribute("estudiante", estudiante);	
 		return "updateStudent";
 	}
 	
 	@PostMapping("/updateStudent/submit")
 	public String updateStudentSubmit(Model model,Student s) {
-		repositorio.updateStudent(s);
+		repositorio.addStudent(s);
 		return "redirect:/listStudent";
+	}
+	
+	@GetMapping("login")
+	public String login() {
+		return "login";
+	}
 }

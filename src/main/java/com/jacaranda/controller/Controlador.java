@@ -9,7 +9,7 @@ import com.jacaranda.model.Calculator;
 @Controller
 public class Controlador {
 	
-	@GetMapping("/")
+	@GetMapping("/wek")
 	public String welcome() {
 		return "index";
 	}
